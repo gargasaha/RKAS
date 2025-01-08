@@ -1,0 +1,230 @@
+@{
+    Layout = null;
+
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Feedback</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .btn {
+            width: 100%;
+            height: 40px;
+            border: none;
+            background-color: rgb(9, 229, 9);
+            color: black;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: rgb(169, 20, 20);
+            color: black;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        @@media screen and (max-width: 600px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            thead tr {
+                display: none;
+            }
+
+            tr {
+                margin-bottom: 15px;
+            }
+
+            td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 15px;
+                font-weight: bold;
+                text-align: left;
+            }
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="display: flex;justify-content: center;">Ranks</h1>
+        <div id="count" style="display: flex;justify-content:space-around;">
+            
+        </div>
+        <table id="tbl" style="margin-top: 30px; border: 3px solid #ccc;">
+            <thead>
+                <tr>
+                    <th style="text-align: center; font-size: 2.2em;">Name</th>
+                    <th style="text-align: center; font-size: 2.2em;">Feedback</th>
+                    <th style="text-align: center; font-size: 2.2em;">Emoji</th>
+                    <th style="text-align: center; font-size: 2.2em;">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be loaded here -->
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/emojione/2.2.7/lib/js/emojione.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function resize(str) {
+            if (str.length > 50) {
+                return str.substring(0, 30) + "...";
+            }
+            return str;
+        }
+        function deleteFeedback(id) {
+            //alert(id);
+            $.ajax({
+                url: '/Home/DeleteFeedback',
+                type: 'POST',
+                data: { id: id },
+                dataType: 'text',
+                success: function (data) {
+                    //console.log(data);
+                }
+            });
+        }
+        $(document).ready(function () {
+            function getCount() {
+                //console.log("getCount");
+                $.ajax({
+                    url: "/Home/GetCount",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        var divBody = $('#count');
+                        divBody.empty();
+                        //console.log(data);
+                        data.forEach(function (item) {
+                            if(item.eid=="1"){
+                                var row='<div class="dv" style="display:flex;flex-direction:column;align-items:center;background-color:green;border-radius:20px;padding:20px"><h1 style="font-size: 2.5em; margin: 0;">&#128516</h1><h3 style="font-size: 1.5em; margin: 0;">'+item.count+'</h3><div style="margin-top:10px">Happy</div></div>'
+                            }
+                            else if(item.eid=="2"){
+                                var row='<div class="dv" style="display:flex;flex-direction:column;align-items:center;background-color: yellow;border-radius:20px;padding:20px"><h1 style="font-size: 2.5em; margin: 0;">&#128528</h1><h3 style="font-size: 1.5em; margin: 0;">'+item.count+'</h3><div style="margin-top:10px">Neutral</div></div>'
+                            }
+                            else if(item.eid=="3"){
+                                var row='<div class="dv" style="display:flex;flex-direction:column;align-items:center;background-color:black;color:white;border-radius:20px;padding:20px"><h1 style="font-size: 2.5em; margin: 0;">&#128532</h1><h3 style="font-size: 1.5em; margin: 0;">'+item.count+'</h3><div style="margin-top:10px;color:white">Sad</div></div>'
+                            }
+                            else if(item.eid=="4"){
+                                var row='<div class="dv" style="display:flex;flex-direction:column;align-items:center;background-color:red;border-radius:20px;padding:20px"><h1 style="font-size: 2.5em; margin: 0;">&#128545</h1><h3 style="font-size: 1.5em; margin: 0;">'+item.count+'</h3><div style="margin-top:10px">Angry</div></div>'
+                            }
+                             
+                            divBody.append(row);
+                        });
+                    }
+                });
+            }
+            getCount();
+            setInterval(getCount, 1000);
+        });
+        $(document).ready(function () {
+            function loadTableData() {
+            //console.log("loadTableData");
+            $.ajax({
+                url: '/Home/GetTopFeedbacks',
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                var tableBody = $('#tbl tbody');
+                tableBody.empty();
+                console.log(data);
+                data.forEach(function (item) {
+                    var row = "";
+                    
+                    if (item.emojiValue == "1") {
+                    row = '<tr>' +
+                        '<td data-label="Name" style="text-align:center"><b>' + item.name + '</b></td>' +
+                        '<td data-label="FeedBack" style="text-align:center">' + resize(item.fb) + '</td>' +
+                        '<td data-label="Emoji" style="font-size: 2.5em;display:flex;justify-content:center">&#128516</td>' +
+                        '<td data-label="Delete"><button class="btn" onclick="deleteFeedback(' + item.fid + ')">Delete</button></td>' +
+                        '</tr>';
+                    }
+                    else if (item.emojiValue == "2") {
+                    row = '<tr>' +
+                        '<td data-label="Name" style="text-align:center"><b>' + item.name + '</b></td>' +
+                        '<td data-label="FeedBack" style="text-align:center">' + resize(item.fb) + '</td>' +
+                        '<td data-label="Emoji" style="font-size: 2.5em;display:flex;justify-content:center">&#128528</td>' +
+                        '<td data-label="Delete"><button class="btn" onclick="deleteFeedback(' + item.fid + ')">Delete</button></td>' +
+                        '</tr>';
+                    }
+                    else if (item.emojiValue == "3") {
+                    row = '<tr>' +
+                        '<td data-label="Name" style="text-align:center"><b>' + item.name + '</b></td>' +
+                        '<td data-label="FeedBack" style="text-align:center">' + resize(item.fb) + '</td>' +
+                        '<td data-label="Emoji" style="font-size: 2.5em;display:flex;justify-content:center">&#128532</td>' +
+                        '<td data-label="Delete"><button class="btn" onclick="deleteFeedback(' + item.fid + ')">Delete</button></td>' +
+                        '</tr>';
+                    }
+                    else if (item.emojiValue == "4") {
+                    row = '<tr>' +
+                        '<td data-label="Name" style="text-align:center"><b>' + item.name + '</b></td>' +
+                        '<td data-label="FeedBack" style="text-align:center">' + resize(item.fb) + '</td>' +
+                        '<td data-label="Emoji" style="font-size: 2.5em;display:flex;justify-content:center">&#128545</td>' +
+                        '<td data-label="Delete"><button class="btn" onclick="deleteFeedback(' + item.fid + ')">Delete</button></td>' +
+                        '</tr>';
+                    }
+                    tableBody.append(row);
+                });
+                }
+            });
+            }
+
+            loadTableData();
+            setInterval(loadTableData, 1000);
+        });
+    </script>
+</body>
+
+</html>
