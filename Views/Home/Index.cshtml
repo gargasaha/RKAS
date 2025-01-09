@@ -112,18 +112,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function(){
-            if(viewdata["F2"]=="1"){
-                setInterval(function() {
-                    document.getElementById('hid').style.display = "block";
-                    document.getElementById('feedbackForm').style.display = "none";
-                }, 2000);
-            }
-            else{
-                document.getElementById('hid').style.display = "none";
-                document.getElementById('feedbackForm').style.display = "block";
-            }
-        });
+        
         function checkEmoji(){
             if(document.getElementById('emojiValue').value==""){
                 alert("please Rate our model by choosing an Emoji");

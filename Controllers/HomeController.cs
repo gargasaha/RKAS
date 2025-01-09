@@ -82,29 +82,7 @@ public class HomeController : Controller
                     m.From = new MailAddress("chatapp659@gmail.com");
                     m.To.Add(Email.ToString());
                     m.Subject = "Thanks for your feedback";
-                    m.Body = "Dear " + Nachar Incoming_value = 0;
-                    void setup()
-                    {
-                        // put your setup code  here, to run once:
-                        Serial.begin(9600);
-                        pinMode(13, OUTPUT);
-                        pinMode(11, OUTPUT);
-
-                    }
-
-                    void loop()
-                    {
-                        // put your main code here, to run repeatedly:
-                        if (Serial.available() > 0)
-                        {
-                            Incoming_value = Serial.read();
-                            Serial.print(Incoming_value);
-                            analogWrite(11, atoi(&Incoming_value));
-
-                        }
-
-                    }
-                    me + ",\n\nThank you for your feedback. We appreciate your time and effort in providing us with your valuable feedback. We will use your feedback to improve our services.\n" +
+                    m.Body = "Dear " + Name + ",\n\nThank you for your feedback. We appreciate your time and effort in providing us with your valuable feedback. We will use your feedback to improve our services.\n" +
                         "We hope to see you again soon.\n";
                     m.IsBodyHtml = true;
                     using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
