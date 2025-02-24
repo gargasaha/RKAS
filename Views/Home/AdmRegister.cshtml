@@ -1,0 +1,212 @@
+@page
+@{
+    Layout = null;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            background-color: rgb(46, 41, 41);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        media (max-width: 600px) {
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+
+            select {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var password = "";
+        $(document).ready(function () {
+            $('#SecondForm').hide();
+        });
+        function updateDist(Sid) {
+            console.log(Sid);
+            $.ajax({
+                url: '/Home/UpdateDist',
+                type: 'POST',
+                data: { Sid: Sid },
+                dataType: 'text',
+                success: function (data) {
+                    var row = "";
+                    var districts = JSON.parse(data);
+                    districts.forEach(function (item) {
+                        row += "<option value='" + item.did + "'>" + item.dName + "</option>";
+                    });
+                    $('#dists').html(row);
+                }
+            });
+        }
+        function checkPassword(confirmPassword) {
+            password = document.getElementById('password').value;
+            if (password != document.getElementById('confirmPassword').value) {
+                document.getElementById('confirmPassword').style.border = "1px solid red";
+                $('#hidd').show();
+            }
+            else {
+                document.getElementById('confirmPassword').style.border = "1px solid #ccc";
+                $('#hidd').hide();
+            }
+        }
+        function chkAll() {
+            var f=true;
+            if (document.getElementById('name').value == "") {
+                document.getElementById("namehidd").style.display = "block";
+                document.getElementById("name").style.border = "1px solid red";
+                f=false;
+            }
+            else {
+                document.getElementById("namehidd").style.display = "none";
+                document.getElementById("name").style.border = "1px solid #ccc";
+            }
+            if (document.getElementById('email').value == "") {
+                document.getElementById("emailhidd").style.display = "block";
+                document.getElementById("email").style.border = "1px solid red";
+                f=false;
+            }
+            else {
+                document.getElementById("emailhidd").style.display = "none";
+                document.getElementById("email").style.border = "1px solid #ccc";
+            }
+            if (document.getElementById('password').value == "") {
+                document.getElementById("passhidd").style.display = "block";
+                document.getElementById("password").style.border = "1px solid red";
+                f=false;
+            }
+            else {
+                document.getElementById("passhidd").style.display = "none";
+                document.getElementById("password").style.border = "1px solid #ccc";
+            }
+            if (document.getElementById('confirmPassword').value == "") {
+                document.getElementById("cnfpasshidd").style.display = "block";
+                document.getElementById("confirmPassword").style.border = "1px solid red";
+                f=false;
+            }
+            else {
+                document.getElementById("cnfpasshidd").style.display = "none";
+                document.getElementById("confirmPassword").style.border = "1px solid #ccc";
+            }
+            if (document.getElementById('states').value == "-1") {
+                document.getElementById("states").style.border = "1px solid red";
+                f=false;
+            }
+            else {
+                document.getElementById("states").style.border = "1px solid #ccc";
+            }
+            if (document.getElementById('dists').value == "-1") {
+                document.getElementById("dists").style.border = "1px solid red";
+                f=false;
+            }
+            else {
+                document.getElementById("dists").style.border = "1px solid #ccc";
+            }
+            if(f){
+                $('#firstForm').hide();
+                $('#SecondForm').show();
+            }
+
+        }
+    </script>
+    <div class="container">
+        <div id="firstForm">
+            <h2 style="text-align: center; margin-bottom: 20px;">Admin Registration</h2>
+            <div style="margin-bottom: 15px;">
+                <label for="name" style="display: block; margin-bottom: 5px;">Name:</label>
+                <input type="text" id="name" placeholder="Enter Name"
+                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" />
+                <label style="display:none; color: red;" id="namehidd">
+                    Name field can't be empty!
+                </label>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="email" style="display: block; margin-bottom: 5px;">Email:</label>
+                <input type="text" id="email" placeholder="Enter Email"
+                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" />
+                <label style="display:none; color: red;" id="emailhidd">
+                    Email field can't be empty!
+                </label>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="password" style="display: block; margin-bottom: 5px;">Password:</label>
+                <input type="password" id="password" placeholder="Enter Password"
+                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" />
+                <label style="display:none; color: red;" id="passhidd">
+                    Password field can't be empty!
+                </label>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="confirmPassword" style="display: block; margin-bottom: 5px;">Confirm Password:</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password"
+                    onkeyup="checkPassword(event);"
+                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" />
+                <label style="display:none; color: red;" id="hidd">
+                    Passwords do not match!
+                </label>
+                <label style="display:none; color: red;" id="cnfpasshidd">
+                    Confirm password field can't be empty!
+                </label>
+            </div>
+            <label for="confirmPassword" style="display: block; margin-bottom: 5px;">Select State:</label>
+            <select onchange="updateDist(this.value)" id="states">
+                <option value="-1" selected>Select State</option>
+                @{
+                    foreach (var item in ViewBag.st)
+                    {
+                        <option value="@item.Sid">@item.Sname</option>
+                    }
+                }
+            </select>
+            <label for="confirmPassword" style="display: block; margin-bottom: 5px;">Select District:</label>
+
+            <select id="dists">
+                <option value="-1" selected>Select District</option>
+
+            </select>
+            <div style="display:flex;justify-content: right;">
+                <input type="button"
+                    style="height: 40px;width:150px;border-radius: 25px;border:none;background-color: green;margin-top: 20px;"
+                    onclick="chkAll()" value="Next" />
+            </div>
+        </div>
+        <div id="SecondForm">
+            <input type="file" id="file" style="display: block;" />
+        </div>
+    </div>
+</body>
+
+</html>
