@@ -1,12 +1,29 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    Layout=null;
+    Layout = null;
 }
 <html>
-    <head>
-        <title>Login</title>
-    </head>
-    <body>
+
+
+<head>
+    <title>Login</title>
+</head>
+
+<body>
+    <script>
+        async function fun1(){
+            if(!("getBattery" in navigator)){
+                document.getElementById("sh").innerHTML = "Battery API not supported";
+                return;
+            }
+            var batt=await navigator.getBattery();
+            document.getElementById("sh").innerHTML = "Battery Level: "+batt.level*100+"%";
+
+        }
         
-    </body>
+    </script>
+    <button onclick="fun1()">Click</button>
+    <div id="sh"></div>
+</body>
+
 </html>
