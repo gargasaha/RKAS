@@ -46,6 +46,9 @@
                 padding: 8px;
             }
         }
+        .item{
+            margin:  0% 10px;
+        }
     </style>
 </head>
 
@@ -84,11 +87,11 @@
             }
         }
         function chkAll() {
-            var f=true;
+            var f = true;
             if (document.getElementById('name').value == "") {
                 document.getElementById("namehidd").style.display = "block";
                 document.getElementById("name").style.border = "1px solid red";
-                f=false;
+                f = false;
             }
             else {
                 document.getElementById("namehidd").style.display = "none";
@@ -97,7 +100,7 @@
             if (document.getElementById('email').value == "") {
                 document.getElementById("emailhidd").style.display = "block";
                 document.getElementById("email").style.border = "1px solid red";
-                f=false;
+                f = false;
             }
             else {
                 document.getElementById("emailhidd").style.display = "none";
@@ -106,7 +109,7 @@
             if (document.getElementById('password').value == "") {
                 document.getElementById("passhidd").style.display = "block";
                 document.getElementById("password").style.border = "1px solid red";
-                f=false;
+                f = false;
             }
             else {
                 document.getElementById("passhidd").style.display = "none";
@@ -115,7 +118,7 @@
             if (document.getElementById('confirmPassword').value == "") {
                 document.getElementById("cnfpasshidd").style.display = "block";
                 document.getElementById("confirmPassword").style.border = "1px solid red";
-                f=false;
+                f = false;
             }
             else {
                 document.getElementById("cnfpasshidd").style.display = "none";
@@ -123,23 +126,35 @@
             }
             if (document.getElementById('states').value == "-1") {
                 document.getElementById("states").style.border = "1px solid red";
-                f=false;
+                f = false;
             }
             else {
                 document.getElementById("states").style.border = "1px solid #ccc";
             }
             if (document.getElementById('dists').value == "-1") {
                 document.getElementById("dists").style.border = "1px solid red";
-                f=false;
+                f = false;
             }
             else {
                 document.getElementById("dists").style.border = "1px solid #ccc";
             }
-            if(f){
+            if (f) {
                 $('#firstForm').hide();
                 $('#SecondForm').show();
             }
 
+        }
+        function visibleButt() {
+            $('#EmailVerifyButt').show();
+            $('#digitInput').show();
+            $('#otp1').focus();
+        }
+        function moveToNext(e, next) {
+            if (e.value.length == 1) {
+                if (next) {
+                    document.getElementById(next).focus();
+                }
+            }
         }
     </script>
     <div class="container">
@@ -147,7 +162,7 @@
             <h2 style="text-align: center; margin-bottom: 20px;">Admin Registration</h2>
             <div style="margin-bottom: 15px;">
                 <label for="name" style="display: block; margin-bottom: 5px;">Name:</label>
-                <input type="text" id="name" placeholder="Enter Name"
+                <input type="text" id="name" placeholder="Enter Name" autocomplete="off"
                     style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" />
                 <label style="display:none; color: red;" id="namehidd">
                     Name field can't be empty!
@@ -155,8 +170,34 @@
             </div>
             <div style="margin-bottom: 15px;">
                 <label for="email" style="display: block; margin-bottom: 5px;">Email:</label>
-                <input type="text" id="email" placeholder="Enter Email"
-                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" />
+                <input type="text" id="email" placeholder="Enter Email" autocomplete="off"
+                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"
+                    onchange="visibleButt()" />
+                <div style="display: flex;">
+                    
+                    <span style="display:none;margin-top: 10px;" id="digitInput" class="item">
+                        <label for="otp1" style="display: block; margin-bottom: 5px;">Enter OTP:</label>
+                
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+
+                            <input type="text"
+                                style="width: 40px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-right: 5px;text-align: center;"
+                                maxlength="1" autocomplete="off" onkeyup="moveToNext(this,'otp2')" id="otp1" />
+                            <input type="text"
+                                style="width: 40px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-right: 5px;text-align: center;"
+                                maxlength="1" autocomplete="off" onkeyup="moveToNext(this,'otp3')" id="otp2" />
+                            <input type="text"
+                                style="width: 40px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-right: 5px;text-align: center;"
+                                maxlength="1" autocomplete="off" onkeyup="moveToNext(this, 'otp4')" id="otp3" />
+                            <input type="text"
+                                style="width: 40px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-right: 5px;text-align: center;"
+                                maxlength="1" autocomplete="off" id="otp4" />
+                    </span>
+                    <button
+                        style="display: none; background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;margin-top: 10px;"
+                        id="EmailVerifyButt" class="item">Verify</button>
+                    
+                </div>
                 <label style="display:none; color: red;" id="emailhidd">
                     Email field can't be empty!
                 </label>
