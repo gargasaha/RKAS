@@ -8,51 +8,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-        body {
-            background-color: rgb(46, 41, 41);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 400px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        media (max-width: 600px) {
-            .container {
-                width: 100%;
-                padding: 10px;
-            }
-
-            select {
-                padding: 8px;
-            }
-        }
-        .item{
-            margin:  0% 10px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 flex justify-center items-center h-screen m-0 p-0">
     <script>
         var password = "";
         $(document).ready(function () {
@@ -157,73 +116,68 @@
             }
         }
     </script>
-    <div class="container">
+    <div class="container bg-white p-5 rounded-lg shadow-lg w-11/12 max-w-md">
         <div id="firstForm">
-            <h2 style="text-align: center; margin-bottom: 20px;">Admin Registration</h2>
-            <div style="margin-bottom: 15px;">
-                <label for="name" style="display: block; margin-bottom: 5px;">Name:</label>
+            <h2 class="text-center mb-5">Admin Registration</h2>
+            <div class="mb-4">
+                <label for="name" class="block mb-1">Name:</label>
                 <input type="text" id="name" placeholder="Enter Name" autocomplete="off"
-                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" />
-                <label style="display:none; color: red;" id="namehidd">
+                    class="w-full p-2 border border-gray-300 rounded" />
+                <label class="hidden text-red-500" id="namehidd">
                     Name field can't be empty!
                 </label>
             </div>
-            <div style="margin-bottom: 15px;">
-                <label for="email" style="display: block; margin-bottom: 5px;">Email:</label>
+            <div class="mb-4">
+                <label for="email" class="block mb-1">Email:</label>
                 <input type="text" id="email" placeholder="Enter Email" autocomplete="off"
-                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"
-                    onchange="visibleButt()" />
-                <div style="display: flex;">
-                    
-                    <span style="display:none;margin-top: 10px;" id="digitInput" class="item">
-                        <label for="otp1" style="display: block; margin-bottom: 5px;">Enter OTP:</label>
-                
-                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-
+                    class="w-full p-2 border border-gray-300 rounded" onchange="visibleButt()" />
+                <div class="flex">
+                    <span class="hidden mt-2" id="digitInput">
+                        <label for="otp1" class="block mb-1">Enter OTP:</label>
+                        <div class="flex justify-between mt-2">
                             <input type="text"
-                                style="width: 40px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-right: 5px;text-align: center;"
-                                maxlength="1" autocomplete="off" onkeyup="moveToNext(this,'otp2')" id="otp1" />
+                                class="w-10 p-2 border border-gray-300 rounded text-center mr-1" maxlength="1"
+                                autocomplete="off" onkeyup="moveToNext(this,'otp2')" id="otp1" />
                             <input type="text"
-                                style="width: 40px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-right: 5px;text-align: center;"
-                                maxlength="1" autocomplete="off" onkeyup="moveToNext(this,'otp3')" id="otp2" />
+                                class="w-10 p-2 border border-gray-300 rounded text-center mr-1" maxlength="1"
+                                autocomplete="off" onkeyup="moveToNext(this,'otp3')" id="otp2" />
                             <input type="text"
-                                style="width: 40px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-right: 5px;text-align: center;"
-                                maxlength="1" autocomplete="off" onkeyup="moveToNext(this, 'otp4')" id="otp3" />
+                                class="w-10 p-2 border border-gray-300 rounded text-center mr-1" maxlength="1"
+                                autocomplete="off" onkeyup="moveToNext(this, 'otp4')" id="otp3" />
                             <input type="text"
-                                style="width: 40px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-right: 5px;text-align: center;"
-                                maxlength="1" autocomplete="off" id="otp4" />
+                                class="w-10 p-2 border border-gray-300 rounded text-center mr-1" maxlength="1"
+                                autocomplete="off" id="otp4" />
                     </span>
                     <button
-                        style="display: none; background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;margin-top: 10px;"
-                        id="EmailVerifyButt" class="item">Verify</button>
-                    
+                        class="hidden bg-blue-500 text-white border-none p-2 rounded cursor-pointer mt-2"
+                        id="EmailVerifyButt">Verify</button>
                 </div>
-                <label style="display:none; color: red;" id="emailhidd">
+                <label class="hidden text-red-500" id="emailhidd">
                     Email field can't be empty!
                 </label>
             </div>
-            <div style="margin-bottom: 15px;">
-                <label for="password" style="display: block; margin-bottom: 5px;">Password:</label>
+            <div class="mb-4">
+                <label for="password" class="block mb-1">Password:</label>
                 <input type="password" id="password" placeholder="Enter Password"
-                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" />
-                <label style="display:none; color: red;" id="passhidd">
+                    class="w-full p-2 border border-gray-300 rounded" />
+                <label class="hidden text-red-500" id="passhidd">
                     Password field can't be empty!
                 </label>
             </div>
-            <div style="margin-bottom: 15px;">
-                <label for="confirmPassword" style="display: block; margin-bottom: 5px;">Confirm Password:</label>
+            <div class="mb-4">
+                <label for="confirmPassword" class="block mb-1">Confirm Password:</label>
                 <input type="password" id="confirmPassword" placeholder="Confirm Password"
                     onkeyup="checkPassword(event);"
-                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" />
-                <label style="display:none; color: red;" id="hidd">
+                    class="w-full p-2 border border-gray-300 rounded" />
+                <label class="hidden text-red-500" id="hidd">
                     Passwords do not match!
                 </label>
-                <label style="display:none; color: red;" id="cnfpasshidd">
+                <label class="hidden text-red-500" id="cnfpasshidd">
                     Confirm password field can't be empty!
                 </label>
             </div>
-            <label for="confirmPassword" style="display: block; margin-bottom: 5px;">Select State:</label>
-            <select onchange="updateDist(this.value)" id="states">
+            <label for="confirmPassword" class="block mb-1">Select State:</label>
+            <select onchange="updateDist(this.value)" id="states" class="w-full p-2 mb-4 border border-gray-300 rounded">
                 <option value="-1" selected>Select State</option>
                 @{
                     foreach (var item in ViewBag.st)
@@ -232,20 +186,18 @@
                     }
                 }
             </select>
-            <label for="confirmPassword" style="display: block; margin-bottom: 5px;">Select District:</label>
-
-            <select id="dists">
+            <label for="confirmPassword" class="block mb-1">Select District:</label>
+            <select id="dists" class="w-full p-2 mb-4 border border-gray-300 rounded">
                 <option value="-1" selected>Select District</option>
-
             </select>
-            <div style="display:flex;justify-content: right;">
+            <div class="flex justify-end">
                 <input type="button"
-                    style="height: 40px;width:150px;border-radius: 25px;border:none;background-color: green;margin-top: 20px;"
+                    class="h-10 w-36 rounded-full border-none bg-green-500 mt-5 cursor-pointer"
                     onclick="chkAll()" value="Next" />
             </div>
         </div>
         <div id="SecondForm">
-            <input type="file" id="file" style="display: block;" />
+            <input type="file" id="file" class="block" />
         </div>
     </div>
 </body>
