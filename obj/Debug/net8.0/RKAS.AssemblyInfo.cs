@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RKAS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0266e479accd05eca98a440eb07e9e27d9940c4d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a7ed59a9a0330ce364f0089a4c34b8234ba68b5")]
 [assembly: System.Reflection.AssemblyProductAttribute("RKAS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RKAS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
