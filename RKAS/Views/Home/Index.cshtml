@@ -1,0 +1,215 @@
+﻿@{
+    ViewData["Title"] = "Radha Kiran Art and Music School";
+}
+
+<style>
+    body {
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+        background-color: #f5f7fb;
+        color: #2c2c2c;
+    }
+
+    /* NAVBAR */
+    .navbar {
+        background: rgba(20, 30, 48, 0.95);
+        backdrop-filter: blur(8px);
+    }
+
+    .navbar-brand {
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .nav-link {
+        font-weight: 500;
+    }
+
+    .nav-link:hover {
+        color: #6ea8fe !important;
+    }
+
+    /* HERO */
+    .hero-section {
+        background:
+            linear-gradient(to right, rgba(20,30,48,0.85), rgba(36,59,85,0.85)),
+            url('/Images/2.jpeg') center/cover no-repeat;
+        color: white;
+        margin-top: 80px;
+        padding: 130px 20px;
+        text-align: center;
+    }
+
+    .hero-section h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .hero-section p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+    /* SECTIONS */
+    section {
+        padding: 80px 0;
+    }
+
+    section h2 {
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+
+    /* CAROUSEL */
+    .carousel-inner img {
+        height: 420px;
+        object-fit: cover;
+        border-radius: 14px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    /* CARDS */
+    .card {
+        border-radius: 14px;
+        border: none;
+        background: #ffffff;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        transition: transform 0.25s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    /* FOOTER */
+    .footer {
+        background: #141e30;
+        color: #dcdcdc;
+        padding: 50px 20px;
+        font-size: 0.95rem;
+    }
+
+    .footer p {
+        margin-bottom: 6px;
+    }
+</style>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">🎨 RKAS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link" href="#teachers">Teachers</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero-section">
+    <h1>Radha Kiran Art & Music School</h1>
+    <p>Established 1980 • Nurturing Creativity for 40+ Years</p>
+    <p>Founded by Himanshu Kumar Saha</p>
+</div>
+
+<!-- GALLERY -->
+<section id="gallery">
+    <div class="container">
+        <h2 class="text-center">Our Gallery</h2>
+
+        <div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                @for (int j = 0; j < 13; j++)
+                {
+                    <button type="button"
+                            data-bs-target="#galleryCarousel"
+                            data-bs-slide-to="@j"
+                            class="@(j == 0 ? "active" : "")"></button>
+                }
+            </div>
+
+            <div class="carousel-inner">
+                @for (int i = 1; i <= 13; i++)
+                {
+                    <div class="carousel-item @(i == 1 ? "active" : "")">
+                        <img src="~/Images/@(i).jpeg"
+                             asp-append-version="true"
+                             class="d-block w-100"
+                             loading="lazy"
+                             alt="Gallery image @i">
+                    </div>
+                }
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="bg-light">
+    <div class="container">
+        <h2 class="text-center">About Us</h2>
+        <p class="text-center fs-5">
+            Radha Kiran Art and Music School is a respected institution dedicated to artistic and musical excellence.
+            Founded in 1980, the school has shaped generations of students with discipline, creativity, and cultural values.
+        </p>
+    </div>
+</section>
+
+<!-- TEACHERS -->
+<section id="teachers">
+    <div class="container">
+        <h2 class="text-center">Our Teachers</h2>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card p-4 text-center">
+                    <h5>🎨 Omkara Nanda Saha</h5>
+                    <p class="text-muted">Art Teacher</p>
+                    <p>15+ years of experience in traditional & contemporary art education.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card p-4 text-center">
+                    <h5>🎵 Sanchari Saha</h5>
+                    <p class="text-muted">Music Teacher</p>
+                    <p>Expert in classical music, vocals, and instrumental training.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer text-center">
+    <div class="container">
+        <p>&copy; 2024 Radha Kiran Art & Music School</p>
+        <p>Established 1980 • Founded by Himanshu Kumar Saha</p>
+    </div>
+</footer>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const menu = document.querySelector('.navbar-collapse');
+                if (menu.classList.contains('show')) {
+                    document.querySelector('.navbar-toggler').click();
+                }
+            });
+        });
+    </script>
+}
